@@ -44,7 +44,6 @@ dotnet test
 
 ## 3. Investigation of tools
 ### 3.1 JUnit 5
-æ å ø
 Investigate JUnit 5 (Jupiter). Explain the following, and how they are useful.
 - @Tag: Tests kan blive tagget med et brugerdefineret tag. Du kan knytte et tag til alle integrations tests og unit tests. Du kan vælge at eksekvere alle tags med samme tag navn så du kan eksempelvis vælge at køre alle unit tests. På denne måde kan du filtrere ved at bruge forskellige tags.
 - @Disabled: Du kan deaktivere specifikke tests. Dette kan være en nyttig ting hvis du har oprettet en test uden funktionalitet 
