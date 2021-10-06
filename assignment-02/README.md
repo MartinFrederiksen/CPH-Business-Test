@@ -19,7 +19,9 @@ Find a story where a software system defect had a bad outcome. Describe what hap
 - [Link 2 besøgt 28/09/21][https://en.wikipedia.org/wiki/Mars_Climate_Orbiter]
 
 Historien:
-The Mars climate orbiter was launched by NASA on december 11, 1998 and was supposed to study the martian climate, martian atmosphere and surface changes. However NASA permanently lost contact to the spacecraft on september 23, 1999 as it was about to enter orbit insertion. The spacecraft encountered Mars on a trajectory that got it too close to the planet, and it was either destroyed in the atmosphere or escaped the planet’s vicinity and entered an orbit around the sun. An investigation attributed the failure to a measurement mismatch between two software systems: metric units by NASA and imperial units by spacecraft builder Lockheed Martin. 
+The Mars climate orbiter was launched by NASA on december 11, 1998 and was supposed to study the martian climate, martian atmosphere and surface changes. However NASA permanently lost contact to the spacecraft on september 23, 1999 as it was about to enter orbit insertion. The spacecraft encountered Mars on a trajectory that got it too close to the planet, and it was either destroyed in the atmosphere or escaped the planet’s vicinity and entered an orbit around the sun. An investigation attributed the failure to a measurement mismatch between two software systems: metric units by NASA and imperial units by spacecraft builder Lockheed Martin.
+
+Source on story: [NASA][https://solarsystem.nasa.gov/missions/mars-climate-orbiter/in-depth/] and Mars [Climate Orbiter Wiki][https://en.wikipedia.org/wiki/Mars_Climate_Orbiter]
 
 Tests:
 Den mest åbenbare test der kunne være implementeret ville være at sammenligne de målinger NASA lavede med dem Martin lavede. Ved at køre en serie af tests for at sikre at de forskellige variationer af metrisk data var omdannet korrekt til empirisk data og den anden vej rundt. Disse tests ville sikre at beregningerne der er lavet af begge hold var korrekt oversat eftersom det aldrig er givet at en offentlig organisation og verdens største rumfarts virksomhed kan kommunikere sammen.
@@ -55,7 +57,52 @@ Investigate JUnit 5 (Jupiter). Explain the following, and how they are useful.
 - assumeFalse, assumeTrue: Disse bruges til at validere antagelser. Hvis en antagelse fejler vil testen blive "smidt væk" i stedet for at give en fejl som vi ser med assert.
 
 ### 3.2 Mocking frameworks
-Investigate mocking frameworks for your preferred language. Choose at least two frameworks, and answer the questions. (One could be Mockito, which we saw in class.)
-- What are their similarities?
-- What are their differences?
-- Which one would you prefer, if any, and why?
+For c# ser du ud til at de to mest populære mocking frameworks er MOQ og NSubstitute.
+
+#### Ligheder og uligheder
+I forhold til begrænsninger og muligheder ser du overordnet ud til at begge frameworks kan klare jobbet lige godt. I bund og grund ser det ud til at det er en smagssag om man vil vælge det ene fremfor det andet. Nedenfor tager vi et hurtigt kig på de to frameworks.
+
+#### Mock Creation
+##### MOQ
+```
+var mock = new Mock<IRepository>();
+```
+##### NSubstitute
+```
+var mock = Substitute.For<IRepository>(); 
+```
+MOQ er nemmere at læse, men NS er ikke svært at forstå.
+
+#### Mocking properties
+##### MOQ
+```
+mock.Setup(foo => foo.Users).Returns(userList);
+```
+
+##### NSubstitute
+```
+mock.Users.Returns(userList);
+```
+Her er NSubstitute meget nemmere at læse og forstå.
+
+#### Matching Arguments
+##### MOQ
+```
+It.IsAny<int>())
+It.IsInRange(0, 10, Range.Inclusive) 
+It.IsIn(Enumerable.Range(1, 5))
+It.IsNotIn(Enumerable.Range(1, 5))
+It.IsNotNull<string>())
+It.IsRegex("abc"))
+It.Is<int>(i => i < 10))
+```
+
+##### NSubstitute
+```
+Arg.Any<int>())
+Arg.Is<int>(i => i < 10))
+```
+Vi kan se at der er en del flere indbygget muligheder i MOQ, hvilket giver mere flexability i validering.
+
+#### Præference
+Generalt foretrækker jeg læsbarheden af NSubstitute, selvom det ser ud til at MOQ giver flere tilpasnings muligheder. Udmiddelbart tror tror jeg at jeg skal arbejde mere i dybden med dem før jeg kan kåre den entydige vinder.
